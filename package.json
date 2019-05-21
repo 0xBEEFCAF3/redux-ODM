@@ -1,0 +1,21 @@
+{
+  "name": "redux-odm",
+  "version": "1.0.0",
+  "description": "Object Data Modeling (ODM) library for redux reducers ",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "build": "tsc --alwaysStrict --outDir ./build ./src/index.ts",
+    "clean": "rm ./build/*.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/armins88/redux-ODM.git"
+  },
+  "author": "Armin Sabouri",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/armins88/redux-ODM/issues"
+  },
+  "homepage": "https://github.com/armins88/redux-ODM#readme"
+}
