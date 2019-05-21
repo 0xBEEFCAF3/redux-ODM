@@ -4,8 +4,8 @@
   "description": "Object Data Modeling (ODM) library for redux reducers ",
   "main": "index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1",
-    "build": "tsc --alwaysStrict --outDir ./build ./src/index.ts",
+    "test": "jest",
+    "build": "tsc --alwaysStrict --lib es2016 --outDir ./build ./src/index.ts",
     "clean": "rm ./build/*.js"
   },
   "repository": {
