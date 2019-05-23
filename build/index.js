@@ -68,14 +68,30 @@ var SchemaItem = /** @class */ (function () {
 var Schema = /** @class */ (function () {
     function Schema(schema) {
         var _this = this;
-        this.validSchema = function (schema) {
+        this.validateAndCreateSchema = function (schema) {
             /**
              * @param: Schema Object
+             * @return: Valid schema object with schemaitem nodes
              */
-            return true;
+            if (schema === void 0) { schema = {}; }
+            var tempSchema = {};
+            for (var key in schema) {
+                if (schema.hasOwnProperty(key)) {
+                    tempSchema[key] = new SchemaItem(schema[key]["type"], schema[key]["of"], schema[key]["kvps"]);
+                }
+            }
+            console.log(tempSchema);
+            return tempSchema;
         };
         this.getSchemRepOfItem = function (item) {
             return {};
+        };
+        this.createEmptyState = function () {
+            for (var key in _this.schema) {
+                if (_this.schema.hasOwnProperty(key)) {
+                    _this.state[key] = undefined;
+                }
+            }
         };
         this.updateItem = function (itemName, data) {
             /**
@@ -101,13 +117,31 @@ var Schema = /** @class */ (function () {
          *    "Addr" : {type:String}
          * }
          *
+         * {
+         *    "Names" : undefined //Can enter any types
+         * }
+         *
          */
-        this.validSchema(schema);
-        this.schema = schema;
+        this.schema = this.validateAndCreateSchema(schema);
+        console.log(schema);
+        this.state = {};
     }
     Schema.prototype.inString = function (str, item) {
         return str.indexOf(item) >= 1;
     };
     return Schema;
 }());
+
+const x = new Schema( {
+    "Name" : {type:String},
+    "Addr" : {type:Array, of:{type:String}}
+ });
+
+ const y = new Schema( {
+    "Name" : {type:String},
+    "Addr" : {type:Object, kvps:{
+        "key" : {type:String},
+        "any" : undefined,
+    }}
+ });
 exports["default"] = Schema;

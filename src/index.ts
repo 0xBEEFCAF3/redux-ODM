@@ -16,8 +16,7 @@ class SchemaItem{
 
     internalSchema : any;
 
-
-    constructor(type : any, of: any, kvps: object){
+    constructor(type : any, of ?: any, kvps ?: object){
         this.type = this.validateAndAssignType(type);
 
         if(this.type === Types.Object){
@@ -69,8 +68,8 @@ class SchemaItem{
 }
 
 class Schema{
-    schema : object;
-    state  : object;
+    private schema : {[k: string]: any}
+    private state  : {[k: string]: any};
 
     constructor(schema : object){
         /**
@@ -84,28 +83,52 @@ class Schema{
          *    "Addr" : {type:String}
          * }
          * 
+         * {
+         *    "Names" : undefined //Can enter any types 
+         * }
+         * 
          */
-        this.validSchema(schema);
-        this.schema = schema;
+        this.schema = this.validateAndCreateSchema(schema);
+        this.state  = {}
     }
 
     private inString(str:string, item: string){
         return str.indexOf(item) >= 1;
     }
 
-    private validSchema = (schema: object) : boolean => {
+    private validateAndCreateSchema = (schema : {[k: string]: any} = {} ) : object => {
         /**
          * @param: Schema Object
+         * @return: Valid schema object with schemaitem nodes
          */
 
-        return true;
+        let tempSchema : {[k: string]: any} = {}
+
+         for (const key in schema) {
+            if(schema[key] === undefined){
+                tempSchema[key] = undefined;
+            }
+            else if (schema.hasOwnProperty(key)) {
+                tempSchema[key] = new SchemaItem(schema[key]["type"], schema[key]["of"], schema[key]["kvps"]);
+            }
+        }
+
+        return tempSchema;
     }
 
     private getSchemRepOfItem = (item: any) : object =>{
         return{}
     }
 
-    updateItem = (itemName :string, data: any) : void=>{
+    private createEmptyState = () : void =>{
+        for (const key in this.schema) {
+            if (this.schema.hasOwnProperty(key)) {
+                this.state[key] = undefined;                
+            }
+        }
+    }
+
+    public updateItem = (itemName :string, data: any) : void=>{
         /**
          * @param: state and schema key
          * @param: data being added to state
@@ -113,13 +136,13 @@ class Schema{
 
     }
 
-    updateState = (state : object) : void =>{}
+    public updateState = (state : object) : void =>{}
 
-    getState = () : object =>{
+    public getState = () : object =>{
         return this.state;
     }
 
-    getSchema = () : object =>{
+    public getSchema = () : object =>{
         return this.schema;
     }
 }

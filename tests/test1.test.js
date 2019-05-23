@@ -13,17 +13,19 @@ test('Schema Constructor will be called', () =>{
 
 test('Schema can accept basic schema', () => {
   const schema = new Schema({
-    'example':String,
-    'ex2' : Number,
-  });
+        "Name" : {type:String},
+        "Addr" : {type:String}
+     });
+
+  console.log(schema);
   expect(Schema).toHaveBeenCalledTimes(1);
 });
 
 
-test('Schema will not accept error schema', () =>{
-  const schema = new Schema({
-    'example':"String",
-    'ex2' : "Number",
-  });
-  expect(Schema).toHaveBeenCalledTimes(1);
-})
+// test('Schema will not accept error schema', () =>{
+//   const schema = new Schema({
+//         "Name" : {},
+//         "Addr" : {type:String}
+//      });
+//   expect(Schema).toHaveBeenCalledTimes(1);
+// })
