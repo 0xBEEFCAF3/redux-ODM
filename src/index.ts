@@ -89,7 +89,7 @@ class Schema{
          * 
          */
         this.schema = this.validateAndCreateSchema(schema);
-        this.state  = {}
+        this.state  = this.createEmptyState(schema);
     }
 
     private inString(str:string, item: string){
@@ -116,16 +116,16 @@ class Schema{
         return tempSchema;
     }
 
-    private getSchemRepOfItem = (item: any) : object =>{
-        return{}
-    }
+    private createEmptyState = (schema : {[k: string]: any} = {} ) : object =>{
+        let tempState : {[k: string]: any} = {}
 
-    private createEmptyState = () : void =>{
-        for (const key in this.schema) {
-            if (this.schema.hasOwnProperty(key)) {
-                this.state[key] = undefined;                
+        for (const key in schema) {
+            if (schema.hasOwnProperty(key)) {
+                tempState[key] = undefined;                
             }
         }
+
+        return tempState;
     }
 
     public updateItem = (itemName :string, data: any) : void=>{
