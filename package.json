@@ -5,7 +5,7 @@
   "main": "index.js",
   "scripts": {
     "test": "jest",
-    "build": "tsc --alwaysStrict --lib es2016 --outDir ./build ./src/index.ts",
+    "build": "tsc --alwaysStrict --lib es6,dom --outDir ./build ./src/index.ts",
     "clean": "rm ./build/*.js"
   },
   "repository": {
@@ -17,5 +17,8 @@
   "bugs": {
     "url": "https://github.com/armins88/redux-ODM/issues"
   },
-  "homepage": "https://github.com/armins88/redux-ODM#readme"
+  "homepage": "https://github.com/armins88/redux-ODM#readme",
+  "devDependencies": {
+    "@types/stringify-object": "^3.2.0"
+  }
 }

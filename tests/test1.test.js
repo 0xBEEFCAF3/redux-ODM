@@ -6,7 +6,24 @@ beforeEach(() => {
   Schema.mockClear();
 });
 
-test('Schema will accept simple objects', () =>{
+test('Schema Constructor will be called', () =>{
     const schema = new Schema();
     expect(Schema).toHaveBeenCalledTimes(1);
+})
+
+test('Schema can accept basic schema', () => {
+  const schema = new Schema({
+    'example':String,
+    'ex2' : Number,
+  });
+  expect(Schema).toHaveBeenCalledTimes(1);
+});
+
+
+test('Schema will not accept error schema', () =>{
+  const schema = new Schema({
+    'example':"String",
+    'ex2' : "Number",
+  });
+  expect(Schema).toHaveBeenCalledTimes(1);
 })
